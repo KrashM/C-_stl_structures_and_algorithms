@@ -1,1 +1,1 @@
-# C-_stl_structures_and_algorithms
+# C++ standard library structures and algorithms
