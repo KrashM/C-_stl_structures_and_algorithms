@@ -54,6 +54,8 @@ Vector<T>::Vector(): SIZE(0), CAPACITY(1){ this -> V = new T[this -> CAPACITY]; 
 
 template <typename T>
 Vector<T>::Vector(const Vector<T> &other){ this -> copy(other); }
+
+template <typename T>
 Vector<T>::Vector(Vector<T> &&other): V(other.V), SIZE(other.SIZE), CAPACITY(other.CAPACITY){ other.V = nullptr; }
 
 template <typename T>
@@ -152,15 +154,15 @@ const size_t Vector<T>::getIndex(const T &element) const{
 template <typename T>
 T Vector<T>::getAt(const size_t &index) const{
 
-    if(index < this -> SIZE) return this -> V[index];
-    throw out_of_range("");
+    if(index >= this -> SIZE) throw out_of_range("Index out of range");
+    return this -> V[index];
 
 }
 
 template <typename T>
 T Vector<T>::getFirst() const{
 
-    if(this -> isEmpty()) throw out_of_range("");
+    if(this -> isEmpty()) throw out_of_range("Index out of range");
     return this -> V[0];
 
 }
@@ -168,7 +170,7 @@ T Vector<T>::getFirst() const{
 template <typename T>
 T Vector<T>::getLast() const{
     
-    if(isEmpty()) throw out_of_range("");
+    if(this -> isEmpty()) throw out_of_range("Index out of range");
     return this -> V[SIZE - 1];
     
 }
@@ -176,9 +178,9 @@ T Vector<T>::getLast() const{
 template <typename T>
 T Vector<T>::popBack(){
 
-    if(isEmpty()) throw out_of_range("");
+    if(this -> isEmpty()) throw out_of_range("Index out of range");
     T result = this -> V[--this -> SIZE];
-    this -> V[this -> SIZE].~T();
+    delete this -> V[this -> SIZE];
     this -> resize();
 
     return result;
@@ -188,12 +190,13 @@ T Vector<T>::popBack(){
 template <typename T>
 T Vector<T>::removeAt(size_t &index){
 
-    if(index >= this -> SIZE) throw out_of_range("");
+    if(index >= this -> SIZE) throw out_of_range("Index out of range");
     T element = this -> V[index];
     --this -> SIZE;
     for(; index < this -> SIZE; index++) this -> V[index] = this -> V[index + 1];
-    this -> V[this -> SIZE].~T();
+    delete this -> V[this -> SIZE];
     this -> resize();
+
     return element;
 
 }
@@ -231,7 +234,7 @@ template <typename T>
 void Vector<T>::insert(const size_t &index, const T &element){
 
     this -> resize();
-    if(index >= this -> SIZE) throw out_of_range("");
+    if(index > this -> SIZE) throw out_of_range("Index out of range");
     for(size_t j = this -> SIZE++; j >= index; j--) this -> V[j + 1] = this -> V[j];
     this -> V[index] = element;
 
