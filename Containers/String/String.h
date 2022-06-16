@@ -14,16 +14,28 @@ class String{
         String(const String &);
         String(String &&);
         ~String();
+
         String &operator =(const String &);
         String &operator =(String &&);
+
         String &operator +=(const char *);
         String &operator +=(const String &);
         String &operator +=(size_t);
+
         char &operator [](const size_t);
         const char &operator [](const size_t) const;
 
         size_t length() const;
         const char *c_str() const;
+
+        bool contains(const char) const;
+        bool contains(const String &) const;
+
+        int find(const char) const;
+        int find(const String &) const;
+
+        String substring(const size_t) const;
+        String substring(const size_t, const size_t) const;
 
         friend ostream &operator <<(ostream &, const String &);
 	    friend istream &operator >>(istream &, String &);
