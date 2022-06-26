@@ -5,22 +5,22 @@
 using std::istream;
 using std::ostream;
 
-class String{
+class string{
 
     public:
-        String();
-        String(const char *);
-        String(const size_t);
-        String(const String &);
-        String(String &&);
-        ~String();
+        string();
+        string(const char *);
+        string(const size_t);
+        string(const string &);
+        string(string &&);
+        ~string();
 
-        String &operator =(const String &);
-        String &operator =(String &&);
+        string &operator =(const string &);
+        string &operator =(string &&);
 
-        String &operator +=(const char *);
-        String &operator +=(const String &);
-        String &operator +=(size_t);
+        string &operator +=(const char *);
+        string &operator +=(const string &);
+        string &operator +=(size_t);
 
         char &operator [](const size_t);
         const char &operator [](const size_t) const;
@@ -29,27 +29,27 @@ class String{
         const char *c_str() const;
 
         bool contains(const char) const;
-        bool contains(const String &) const;
+        bool contains(const string &) const;
 
         int find(const char) const;
-        int find(const String &) const;
+        int find(const string &) const;
 
-        String substring(const size_t) const;
-        String substring(const size_t, const size_t) const;
+        string substring(const size_t) const;
+        string substring(const size_t, const size_t) const;
 
-        friend ostream &operator <<(ostream &, const String &);
-	    friend istream &operator >>(istream &, String &);
+        friend ostream &operator <<(ostream &, const string &);
+	    friend istream &operator >>(istream &, string &);
 
-        friend bool operator ==(const String &, const String &);
-        friend bool operator !=(const String &, const String &);
+        friend bool operator ==(const string &, const string &);
+        friend bool operator !=(const string &, const string &);
 
-        friend String &operator +(const String &, const String &);
+        friend string &operator +(const string &, const string &);
 
     private:
         size_t size;
         char *str;
 
         void free();
-        void copy(const String &);
+        void copy(const string &);
 
 };

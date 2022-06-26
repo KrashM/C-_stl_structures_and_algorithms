@@ -9,19 +9,19 @@ using std::ofstream;
 using std::ifstream;
 
 template <typename T>
-class Vector{
+class vector{
     
     public:
-        Vector();
-        Vector(const Vector<T> &);
-        Vector(Vector<T> &&);
-        ~Vector();
+        vector();
+        vector(const vector<T> &);
+        vector(vector<T> &&);
+        ~vector();
 
         T &operator [](const size_t &);
         const T &operator [](const size_t &) const;
-        Vector<T> &operator =(const Vector<T> &);
-        Vector<T> &operator =(Vector<T> &&);
-        template <typename U> friend ostream &operator <<(ostream &os, const Vector<U> &);
+        vector<T> &operator =(const vector<T> &);
+        vector<T> &operator =(vector<T> &&);
+        template <typename U> friend ostream &operator <<(ostream &os, const vector<U> &);
 
         const bool isEmpty() const;
         const bool contains(const T &) const;
@@ -45,24 +45,24 @@ class Vector{
         
         void resize();
         void free();
-        void copy(const Vector<T> &);
+        void copy(const vector<T> &);
 
 };
 
 template <typename T>
-Vector<T>::Vector(): SIZE(0), CAPACITY(1){ this -> V = new T[this -> CAPACITY]; }
+vector<T>::vector(): SIZE(0), CAPACITY(1){ this -> V = new T[this -> CAPACITY]; }
 
 template <typename T>
-Vector<T>::Vector(const Vector<T> &other){ this -> copy(other); }
+vector<T>::vector(const vector<T> &other){ this -> copy(other); }
 
 template <typename T>
-Vector<T>::Vector(Vector<T> &&other): V(other.V), SIZE(other.SIZE), CAPACITY(other.CAPACITY){ other.V = nullptr; }
+vector<T>::vector(vector<T> &&other): V(other.V), SIZE(other.SIZE), CAPACITY(other.CAPACITY){ other.V = nullptr; }
 
 template <typename T>
-Vector<T>::~Vector(){ this -> del(); }
+vector<T>::~vector(){ this -> del(); }
 
 template <typename T>
-T &Vector<T>::operator [](const size_t &index){
+T &vector<T>::operator [](const size_t &index){
     
     if(index >= this -> SIZE) throw out_of_range("");
     return this -> V[index];
@@ -70,7 +70,7 @@ T &Vector<T>::operator [](const size_t &index){
 }
 
 template <typename T>
-const T &Vector<T>::operator [](const size_t &index) const{
+const T &vector<T>::operator [](const size_t &index) const{
     
     if(index >= this -> SIZE) throw out_of_range("");
     return this -> V[index];
@@ -78,7 +78,7 @@ const T &Vector<T>::operator [](const size_t &index) const{
 }
 
 template <typename T>
-Vector<T> &Vector<T>::operator =(const Vector<T> &other){
+vector<T> &vector<T>::operator =(const vector<T> &other){
 
     if(this != &other){
 
@@ -92,7 +92,7 @@ Vector<T> &Vector<T>::operator =(const Vector<T> &other){
 }
 
 template <typename T>
-Vector<T> &Vector<T>::operator =(Vector<T> &&other){
+vector<T> &vector<T>::operator =(vector<T> &&other){
 
     if(this != &other){
 
@@ -109,7 +109,7 @@ Vector<T> &Vector<T>::operator =(Vector<T> &&other){
 }
 
 template <typename T>
-ostream &operator <<(ostream &os, const Vector<T> &obj){
+ostream &operator <<(ostream &os, const vector<T> &obj){
 
     for(size_t i = 0; i < obj.size(); i++){
 
@@ -123,10 +123,10 @@ ostream &operator <<(ostream &os, const Vector<T> &obj){
 }
 
 template <typename T>
-const bool Vector<T>::isEmpty() const{ return this -> SIZE == 0; }
+const bool vector<T>::isEmpty() const{ return this -> SIZE == 0; }
 
 template <typename T>
-const bool Vector<T>::contains(const T &search) const{
+const bool vector<T>::contains(const T &search) const{
 
     for(size_t i = 0; i < this -> SIZE; i++)
         if(this -> V[i] == search) return true;
@@ -135,13 +135,13 @@ const bool Vector<T>::contains(const T &search) const{
 }
 
 template <typename T>
-const size_t Vector<T>::capacity() const{ return this -> CAPACITY; }
+const size_t vector<T>::capacity() const{ return this -> CAPACITY; }
 
 template <typename T>
-const size_t Vector<T>::size() const{ return this -> SIZE; }
+const size_t vector<T>::size() const{ return this -> SIZE; }
 
 template <typename T>
-const size_t Vector<T>::getIndex(const T &element) const{
+const size_t vector<T>::getIndex(const T &element) const{
 
     for(int i = 0; i < this -> SIZE; i++)
         if(this -> V[i] == element)
@@ -152,7 +152,7 @@ const size_t Vector<T>::getIndex(const T &element) const{
 }
 
 template <typename T>
-T Vector<T>::getAt(const size_t &index) const{
+T vector<T>::getAt(const size_t &index) const{
 
     if(index >= this -> SIZE) throw out_of_range("Index out of range");
     return this -> V[index];
@@ -160,7 +160,7 @@ T Vector<T>::getAt(const size_t &index) const{
 }
 
 template <typename T>
-T Vector<T>::getFirst() const{
+T vector<T>::getFirst() const{
 
     if(this -> isEmpty()) throw out_of_range("Index out of range");
     return this -> V[0];
@@ -168,7 +168,7 @@ T Vector<T>::getFirst() const{
 }
 
 template <typename T>
-T Vector<T>::getLast() const{
+T vector<T>::getLast() const{
     
     if(this -> isEmpty()) throw out_of_range("Index out of range");
     return this -> V[SIZE - 1];
@@ -176,7 +176,7 @@ T Vector<T>::getLast() const{
 }
 
 template <typename T>
-T Vector<T>::popBack(){
+T vector<T>::popBack(){
 
     if(this -> isEmpty()) throw out_of_range("Index out of range");
     T result = this -> V[--this -> SIZE];
@@ -188,7 +188,7 @@ T Vector<T>::popBack(){
 }
 
 template <typename T>
-T Vector<T>::removeAt(size_t &index){
+T vector<T>::removeAt(size_t &index){
 
     if(index >= this -> SIZE) throw out_of_range("Index out of range");
     T element = this -> V[index];
@@ -202,7 +202,7 @@ T Vector<T>::removeAt(size_t &index){
 }
 
 template <typename T>
-void Vector<T>::pushBack(const T &element){
+void vector<T>::pushBack(const T &element){
 
     this -> resize();
     this -> V[this -> SIZE++] = element;
@@ -210,7 +210,7 @@ void Vector<T>::pushBack(const T &element){
 }
 
 template <typename T>
-void Vector<T>::write(ofstream &ofs) const{
+void vector<T>::write(ofstream &ofs) const{
 
     ofs.write((const char *)&this -> CAPACITY, sizeof(size_t));
     ofs.write((const char *)&this -> SIZE, sizeof(size_t));
@@ -220,7 +220,7 @@ void Vector<T>::write(ofstream &ofs) const{
 }
 
 template <typename T>
-void Vector<T>::read(ifstream &ifs){
+void vector<T>::read(ifstream &ifs){
 
     ifs.read((char *)&this -> CAPACITY, sizeof(size_t));
     ifs.read((char *)&this -> SIZE, sizeof(size_t));
@@ -231,7 +231,7 @@ void Vector<T>::read(ifstream &ifs){
 }
 
 template <typename T>
-void Vector<T>::insert(const size_t &index, const T &element){
+void vector<T>::insert(const size_t &index, const T &element){
 
     this -> resize();
     if(index > this -> SIZE) throw out_of_range("Index out of range");
@@ -241,7 +241,7 @@ void Vector<T>::insert(const size_t &index, const T &element){
 }
 
 template <typename T>
-void Vector<T>::erase(const T &element){
+void vector<T>::erase(const T &element){
 
     size_t offset = 0;
 
@@ -258,7 +258,7 @@ void Vector<T>::erase(const T &element){
 }
 
 template <typename T>
-void Vector<T>::resize(){
+void vector<T>::resize(){
 
     if(this -> SIZE < this -> CAPACITY / 4) this -> CAPACITY /= 2;
     else if(this -> SIZE == this -> CAPACITY) this -> CAPACITY *= 2;
@@ -272,10 +272,10 @@ void Vector<T>::resize(){
 }
 
 template <typename T>
-void Vector<T>::free(){ delete[] this -> V; }
+void vector<T>::free(){ delete[] this -> V; }
 
 template <typename T>
-void Vector<T>::copy(const Vector<T> &other){
+void vector<T>::copy(const vector<T> &other){
 
     this -> CAPACITY = other.CAPACITY;
     this -> SIZE = other.SIZE;

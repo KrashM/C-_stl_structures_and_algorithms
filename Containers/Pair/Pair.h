@@ -1,33 +1,33 @@
 #pragma once
 
 template <typename T, typename U>
-struct Pair{
+struct pair{
 
     T first;
     U second;
 
-    Pair();
-    Pair(const T &, const U &);
-    Pair(const Pair<T, U> &);
-    Pair &operator =(const Pair<T, U> &);
+    pair();
+    pair(const T &, const U &);
+    pair(const pair<T, U> &);
+    pair &operator =(const pair<T, U> &);
 
-    void swap(Pair<T, U> &);
+    void swap(pair<T, U> &);
 
-    private: void copy(const Pair<T, U> &);
+    private: void copy(const pair<T, U> &);
 
 };
 
 template<typename T, typename U>
-Pair<T, U>::Pair(): first(T()), second(U()){}
+pair<T, U>::pair(): first(T()), second(U()){}
 
 template<typename T, typename U>
-Pair<T, U>::Pair(const T &first, const U &second): first(first), second(second){}
+pair<T, U>::pair(const T &first, const U &second): first(first), second(second){}
 
 template<typename T, typename U>
-Pair<T, U>::Pair(const Pair<T, U> &other){ this -> copy(other); }
+pair<T, U>::pair(const pair<T, U> &other){ this -> copy(other); }
 
 template<typename T, typename U>
-Pair<T, U> &Pair<T, U>::operator =(const Pair<T, U> &other){
+pair<T, U> &pair<T, U>::operator =(const pair<T, U> &other){
 
     if(this != &other) this -> copy(other);
     return *this;
@@ -35,7 +35,7 @@ Pair<T, U> &Pair<T, U>::operator =(const Pair<T, U> &other){
 }
 
 template<typename T, typename U>
-void Pair<T, U>::swap(Pair<T, U> &other){
+void pair<T, U>::swap(pair<T, U> &other){
 
     T tempT = this -> first;
     U tempU = this -> second;
@@ -49,7 +49,7 @@ void Pair<T, U>::swap(Pair<T, U> &other){
 }
 
 template<typename T, typename U>
-void Pair<T, U>::copy(const Pair<T, U> &other){
+void pair<T, U>::copy(const pair<T, U> &other){
 
     this -> first = other.first;
     this -> second = other.second;

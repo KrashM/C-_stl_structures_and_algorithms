@@ -1,4 +1,4 @@
-#include "String.h"
+#include "string.h"
 
 #include <cstring>
 #include <iomanip>
@@ -8,9 +8,9 @@
 using std::setw;
 using std::out_of_range;
 
-String::String(): size(0), str(nullptr){}
-String::String(const char *str): size(strlen(str)), str(new char[this -> size + 1]){ strcpy(this -> str, str); }
-String::String(size_t n){
+string::string(): size(0), str(nullptr){}
+string::string(const char *str): size(strlen(str)), str(new char[this -> size + 1]){ strcpy(this -> str, str); }
+string::string(size_t n){
 
     size_t digits = (size_t)log10(n) + 1;
     this -> str = new char[digits + 1];
@@ -20,16 +20,16 @@ String::String(size_t n){
     this -> size = digits;
 
 }
-String::String(const String &other){ this -> copy(other); }
-String::String(String &&other){
+string::string(const string &other){ this -> copy(other); }
+string::string(string &&other){
 
     this -> size = other.size;
     this -> str = other.str;
     other.str = nullptr;
 
 }
-String::~String(){ this -> free(); }
-String &String::operator =(const String &other){
+string::~string(){ this -> free(); }
+string &string::operator =(const string &other){
 
     if(this != &other){
 
@@ -41,7 +41,7 @@ String &String::operator =(const String &other){
     return *this;
 
 }
-String &String::operator =(String &&other){
+string &string::operator =(string &&other){
 
     if(this != &other){
 
@@ -56,7 +56,7 @@ String &String::operator =(String &&other){
     return *this;
 
 }
-String &String::operator +=(const char *str){
+string &string::operator +=(const char *str){
 
     size_t catLen = strlen(str);
     char *temp = new char[this -> size + catLen + 1];
@@ -72,7 +72,7 @@ String &String::operator +=(const char *str){
     return *this;
 
 }
-String &String::operator +=(const String &other){
+string &string::operator +=(const string &other){
 
     char *temp = new char[this -> size + other.size + 1];
 
@@ -87,7 +87,7 @@ String &String::operator +=(const String &other){
     return *this;
 
 }
-String &String::operator +=(size_t n){
+string &string::operator +=(size_t n){
 
     size_t digits = (size_t)log10(n) + 1;
     char *temp = new char[this -> size + digits + 1];
@@ -105,7 +105,7 @@ String &String::operator +=(size_t n){
     return *this;
 
 }
-char &String::operator [](const size_t index){
+char &string::operator [](const size_t index){
     
     if(index >= this -> size)
         throw out_of_range("Index is out of range");
@@ -113,7 +113,7 @@ char &String::operator [](const size_t index){
     return this -> str[index];
     
 }
-const char &String::operator [](const size_t index) const{
+const char &string::operator [](const size_t index) const{
     
     if(index >= this -> size)
         throw out_of_range("Index is out of range");
@@ -122,10 +122,10 @@ const char &String::operator [](const size_t index) const{
     
 }
 
-size_t String::length() const{ return this -> size; }
-const char *String::c_str() const{ return this -> str; }
+size_t string::length() const{ return this -> size; }
+const char *string::c_str() const{ return this -> str; }
 
-bool String::contains(const char character) const{
+bool string::contains(const char character) const{
 
     for(size_t i = 0; i < this -> size; i++)
         if(this -> str[i] == character)
@@ -135,7 +135,7 @@ bool String::contains(const char character) const{
 
 }
 
-bool String::contains(const String &substring) const{
+bool string::contains(const string &substring) const{
 
     for(size_t i = 0; i < this -> size - substring.size; i++)
         if(this -> substring(i, i + substring.size) == *this) return true;
@@ -144,7 +144,7 @@ bool String::contains(const String &substring) const{
 
 }
 
-int String::find(const char character) const{
+int string::find(const char character) const{
 
     for(size_t i = 0; i < this -> size; i++)
         if(this -> str[i] == character)
@@ -154,7 +154,7 @@ int String::find(const char character) const{
 
 }
 
-int String::find(const String &substring) const{
+int string::find(const string &substring) const{
 
     for(size_t i = 0; i < this -> size - substring.size; i++)
         if(this -> substring(i, i + substring.size) == *this)
@@ -164,31 +164,31 @@ int String::find(const String &substring) const{
 
 }
 
-String String::substring(const size_t end) const{
+string string::substring(const size_t end) const{
 
-    String result;
+    string result;
     for(size_t i = 0; i < end; i++) result += this -> str[i];
 
     return result;
 
 }
 
-String String::substring(const size_t start, const size_t end) const{
+string string::substring(const size_t start, const size_t end) const{
 
-    String result;
+    string result;
     for(size_t i = start; i < end; i++) result += this -> str[i];
 
     return result;
 
 }
 
-ostream &operator <<(ostream &os, const String &obj){
+ostream &operator <<(ostream &os, const string &obj){
 
     os << obj.str;
     return os;
 
 }
-istream &operator >>(istream &is, String &obj){
+istream &operator >>(istream &is, string &obj){
 
     delete[] obj.str;
     char buffer[1024];
@@ -201,7 +201,7 @@ istream &operator >>(istream &is, String &obj){
     return is;
 
 }
-bool operator ==(const String &lhs, const String &rhs){
+bool operator ==(const string &lhs, const string &rhs){
 
     if(lhs.length() != rhs.length()) return false;
 
@@ -211,17 +211,17 @@ bool operator ==(const String &lhs, const String &rhs){
     return true;
 
 }
-bool operator !=(const String &lhs, const String &rhs){ return !(lhs == rhs); }
-String &operator +(const String &lhs, const String &rhs){
+bool operator !=(const string &lhs, const string &rhs){ return !(lhs == rhs); }
+string &operator +(const string &lhs, const string &rhs){
 
-    String temp(lhs);
+    string temp(lhs);
     temp += rhs;
     return temp;
 
 }
 
-void String::free(){ delete[] this -> str; }
-void String::copy(const String &other){
+void string::free(){ delete[] this -> str; }
+void string::copy(const string &other){
 
     this -> size = other.size;
     this -> str = new char[other.size + 1];

@@ -7,15 +7,15 @@ using std::out_of_range;
 typedef unsigned long long int size_t;
 
 template <typename T>
-class Stack{
+class stack{
 
     public:
-        Stack();
-        Stack(const Stack<T> &);
-        Stack(Stack<T> &&);
-        ~Stack();
-        Stack<T> &operator =(const Stack<T> &);
-        Stack<T> &operator =(Stack<T> &&);
+        stack();
+        stack(const stack<T> &);
+        stack(stack<T> &&);
+        ~stack();
+        stack<T> &operator =(const stack<T> &);
+        stack<T> &operator =(stack<T> &&);
 
         bool empty() const;
         size_t size() const;
@@ -29,19 +29,19 @@ class Stack{
         size_t SIZE, CAPACITY;
 
         void free();
-        void copy(const Stack<T> &);
+        void copy(const stack<T> &);
         void resize();
 
 };
 
 template <typename T>
-Stack<T>::Stack(): SIZE(0), CAPACITY(1){ this -> S = new T[this -> CAPACITY]; }
+stack<T>::stack(): SIZE(0), CAPACITY(1){ this -> S = new T[this -> CAPACITY]; }
 
 template <typename T>
-Stack<T>::Stack(const Stack<T> &other){ this -> copy(other); }
+stack<T>::stack(const stack<T> &other){ this -> copy(other); }
 
 template <typename T>
-Stack<T>::Stack(Stack<T> &&other){
+stack<T>::stack(stack<T> &&other){
 
     this -> SIZE = other.SIZE;
     this -> CAPACITY = other.CAPACITY;
@@ -51,10 +51,10 @@ Stack<T>::Stack(Stack<T> &&other){
 }
 
 template <typename T>
-Stack<T>::~Stack(){ this -> free(); }
+stack<T>::~stack(){ this -> free(); }
 
 template <typename T>
-Stack<T> &Stack<T>::operator =(const Stack<T> &other){
+stack<T> &stack<T>::operator =(const stack<T> &other){
 
     if(this != &other){
 
@@ -68,7 +68,7 @@ Stack<T> &Stack<T>::operator =(const Stack<T> &other){
 }
 
 template <typename T>
-Stack<T> &Stack<T>::operator =(Stack<T> &&other){
+stack<T> &stack<T>::operator =(stack<T> &&other){
 
     if(this != &other){
 
@@ -85,29 +85,29 @@ Stack<T> &Stack<T>::operator =(Stack<T> &&other){
 }
 
 template <typename T>
-bool Stack<T>::empty() const{ return !this -> SIZE; }
+bool stack<T>::empty() const{ return !this -> SIZE; }
 
 template <typename T>
-size_t Stack<T>::size() const{ return this -> SIZE; }
+size_t stack<T>::size() const{ return this -> SIZE; }
 
 template <typename T>
-T Stack<T>::back(){
+T stack<T>::back(){
     
-    if(!this -> SIZE) throw out_of_range("Stack is empty");
+    if(!this -> SIZE) throw out_of_range("stack is empty");
     return this -> S[this -> SIZE - 1];
     
 }
 
 template <typename T>
-const T Stack<T>::back() const{
+const T stack<T>::back() const{
     
-    if(!this -> SIZE) throw out_of_range("Stack is empty");
+    if(!this -> SIZE) throw out_of_range("stack is empty");
     return this -> S[this -> SIZE - 1];
     
 }
 
 template <typename T>
-void Stack<T>::push_back(const T &element){
+void stack<T>::push_back(const T &element){
 
     this -> resize();
     this -> S[this -> SIZE++] = element;
@@ -115,9 +115,9 @@ void Stack<T>::push_back(const T &element){
 }
 
 template <typename T>
-T Stack<T>::pop_back(){
+T stack<T>::pop_back(){
 
-    if(this -> isEmpty()) throw out_of_range("Stack is empty");
+    if(this -> isEmpty()) throw out_of_range("stack is empty");
 
     T result = this -> S[--this -> SIZE];
     this -> S[this -> SIZE].~T();
@@ -128,10 +128,10 @@ T Stack<T>::pop_back(){
 }
 
 template <typename T>
-void Stack<T>::free(){ delete[] this -> S; }
+void stack<T>::free(){ delete[] this -> S; }
 
 template <typename T>
-void Stack<T>::copy(const Stack<T> &other){
+void stack<T>::copy(const stack<T> &other){
 
     this -> SIZE = other.SIZE;
     this -> CAPACITY = other.CAPACITY;
@@ -142,7 +142,7 @@ void Stack<T>::copy(const Stack<T> &other){
 }
 
 template <typename T>
-void Stack<T>::resize(){
+void stack<T>::resize(){
 
     if(this -> SIZE < this -> CAPACITY / 4) this -> CAPACITY /= 2;
     else if(this -> SIZE == this -> CAPACITY) this -> CAPACITY *= 2;

@@ -7,15 +7,15 @@ using std::out_of_range;
 typedef unsigned long long int size_t;
 
 template <typename T>
-class Queue{
+class queue{
 
     public:
-        Queue();
-        Queue(const Queue<T> &);
-        Queue(Queue<T> &&);
-        ~Queue();
-        Queue<T> &operator =(const Queue<T> &);
-        Queue<T> &operator =(Queue<T> &&);
+        queue();
+        queue(const queue<T> &);
+        queue(queue<T> &&);
+        ~queue();
+        queue<T> &operator =(const queue<T> &);
+        queue<T> &operator =(queue<T> &&);
 
         bool isEmpty() const;
         size_t size() const;
@@ -31,17 +31,17 @@ class Queue{
         long long FRONT, REAR;
 
         void resize();
-        void copy(const Queue<T> &);
+        void copy(const queue<T> &);
         void free();
 
 };
 
 template <typename T>
-Queue<T>::Queue(): SIZE(0), CAPACITY(1), FRONT(-1), REAR(-1){ this -> Q = new T[this -> CAPACITY]; }
+queue<T>::queue(): SIZE(0), CAPACITY(1), FRONT(-1), REAR(-1){ this -> Q = new T[this -> CAPACITY]; }
 template <typename T>
-Queue<T>::Queue(const Queue<T> &other){ this -> copy(other); }
+queue<T>::queue(const queue<T> &other){ this -> copy(other); }
 template <typename T>
-Queue<T>::Queue(Queue<T> &&other){
+queue<T>::queue(queue<T> &&other){
 
     this -> CAPACITY = other.CAPACITY;
     this -> SIZE = other.SIZE;
@@ -50,10 +50,10 @@ Queue<T>::Queue(Queue<T> &&other){
 
 }
 template <typename T>
-Queue<T>::~Queue(){ this -> free(); }
+queue<T>::~queue(){ this -> free(); }
 
 template <typename T>
-Queue<T> &Queue<T>::operator =(const Queue<T> &other){
+queue<T> &queue<T>::operator =(const queue<T> &other){
 
     if(this != &other){
 
@@ -67,7 +67,7 @@ Queue<T> &Queue<T>::operator =(const Queue<T> &other){
 }
 
 template <typename T>
-Queue<T> &Queue<T>::operator =(Queue<T> &&other){
+queue<T> &queue<T>::operator =(queue<T> &&other){
 
     if(this != &other){
 
@@ -84,13 +84,13 @@ Queue<T> &Queue<T>::operator =(Queue<T> &&other){
 }
 
 template <typename T>
-bool Queue<T>::isEmpty() const{ return front == -1 && rear == -1; }
+bool queue<T>::isEmpty() const{ return front == -1 && rear == -1; }
 
 template <typename T>
-size_t Queue<T>::size() const{ return this -> SIZE; }
+size_t queue<T>::size() const{ return this -> SIZE; }
 
 template <typename T>
-void Queue<T>::enqueue(T element){
+void queue<T>::enqueue(T element){
 
     this -> resize();
     this -> FRONT = 0;
@@ -99,9 +99,9 @@ void Queue<T>::enqueue(T element){
 }
 
 template <typename T>
-T Queue<T>::dequeue(){
+T queue<T>::dequeue(){
 
-    if(this -> isEmpty()) throw out_of_range("Queue is empty");
+    if(this -> isEmpty()) throw out_of_range("queue is empty");
 
     T result = this -> Q[this -> FRONT];
 
@@ -115,23 +115,23 @@ T Queue<T>::dequeue(){
 }
 
 template <typename T>
-T Queue<T>::front(){
+T queue<T>::front(){
 
-    if(this -> FRONT == -1) throw out_of_range("Queue is empty");
+    if(this -> FRONT == -1) throw out_of_range("queue is empty");
     return this -> Q[this -> FRONT];
 
 }
 
 template <typename T>
-const T Queue<T>::front() const{
+const T queue<T>::front() const{
 
-    if(this -> FRONT == -1) throw out_of_range("Queue is empty");
+    if(this -> FRONT == -1) throw out_of_range("queue is empty");
     return this -> Q[this -> FRONT];
 
 }
 
 template <typename T>
-void Queue<T>::resize(){
+void queue<T>::resize(){
 
     if(this -> SIZE < this -> CAPACITY / 4) this -> CAPACITY /= 2;
     else if(this -> SIZE == this -> CAPACITY) this -> CAPACITY *= 2;
@@ -146,7 +146,7 @@ void Queue<T>::resize(){
 }
 
 template <typename T>
-void Queue<T>::copy(const Queue<T> &other){
+void queue<T>::copy(const queue<T> &other){
 
     this -> CAPACITY = other.CAPACITY;
     this -> SIZE = other.SIZE;
@@ -160,4 +160,4 @@ void Queue<T>::copy(const Queue<T> &other){
 }
 
 template <typename T>
-void Queue<T>::free(){ delete[] this -> Q; }
+void queue<T>::free(){ delete[] this -> Q; }
