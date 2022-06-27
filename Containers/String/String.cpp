@@ -212,7 +212,7 @@ bool operator ==(const string &lhs, const string &rhs){
 
 }
 bool operator !=(const string &lhs, const string &rhs){ return !(lhs == rhs); }
-string &operator +(const string &lhs, const string &rhs){
+string operator +(const string &lhs, const string &rhs){
 
     string temp(lhs);
     temp += rhs;

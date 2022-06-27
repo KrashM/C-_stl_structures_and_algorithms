@@ -43,7 +43,7 @@ class string{
         friend bool operator ==(const string &, const string &);
         friend bool operator !=(const string &, const string &);
 
-        friend string &operator +(const string &, const string &);
+        friend string operator +(const string &, const string &);
 
     private:
         size_t size;
