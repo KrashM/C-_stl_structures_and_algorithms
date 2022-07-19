@@ -157,7 +157,7 @@ int string::find(const char character) const{
 int string::find(const string &substring) const{
 
     for(size_t i = 0; i < this -> size - substring.size; i++)
-        if(this -> substring(i, i + substring.size) == *this)
+        if(this -> substring(i, i + substring.size) == substring)
             return i;
 
     return -1;
